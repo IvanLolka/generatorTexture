@@ -156,16 +156,16 @@
       <div>
         <label>Цвет 1 (База)</label>
         <div class="color-input-group">
-          <input type="text" id="color1Text" ue="#1c400e">
-          <input type="color" id="baseColor" ue="#1c400e">
+          <input type="text" id="color1Text" value="#1c400e">
+          <input type="color" id="baseColor" value="#1c400e">
         </div>
       </div>
 
       <div>
         <label>Цвет 2 (Середина)</label>
         <div class="color-input-group">
-          <input type="text" id="color2Text" ue="#7be322">
-          <input type="color" id="shineColor" ue="#7be322">
+          <input type="text" id="color2Text" value="#7be322">
+          <input type="color" id="shineColor" value="#7be322">
         </div>
       </div>
 
@@ -175,49 +175,49 @@
           <span>+ Цвет 3</span>
         </label>
         <div class="color-input-group">
-          <input type="text" id="color3Text" ue="#ffffff">
-          <input type="color" id="thirdColor" ue="#ffffff">
+          <input type="text" id="color3Text" value="#ffffff">
+          <input type="color" id="thirdColor" value="#ffffff">
         </div>
       </div>
 
       <div>
         <label>Размер пикселя</label>
-        <input type="range" id="pixelSize" min="4" max="24" ue="8" step="2">
+        <input type="range" id="pixelSize" min="4" max="24" value="8" step="2">
       </div>
 
       <div>
         <label>Ширина / Плотность</label>
-        <input type="range" id="shineWidth" min="2" max="16" value="6" step="1">
+        <input type="range" id="shineWidth" min="2" max="16" valvalue="6" step="1">
       </div>
 
       <div>
         <label>Скорость</label>
-        <input type="range" id="speed" min="1" max="8" value="3" step="0.2">
+        <input type="range" id="speed" min="1" max="8" valvalue="3" step="0.2">
       </div>
 
       <div class="span-2">
         <label>Тип узора</label>
         <select id="patternType">
-          <option value="smooth_sparkle">Плавные пиксельные искры</option>
-          <option value="sparkle">Резкие искры / Стробоскоп</option>
-          <option value="diagonal">Диагональная волна</option>
-          <option value="horizontal">Горизонтальный перелив</option>
+          <option valvalue="smooth_sparkle">Плавные пиксельные искры</option>
+          <option valvalue="sparkle">Резкие искры / Стробоскоп</option>
+          <option valvalue="diagonal">Диагональная волна</option>
+          <option valvalue="horizontal">Горизонтальный перелив</option>
         </select>
       </div>
 
       <div>
         <label>Плавность переливала</label>
-        <input type="range" id="smoothness" min="1" max="10" value="5">
+        <input type="range" id="smoothness" min="1" max="10" valvalue="5">
       </div>
 
       <div>
         <label>Размер ника</label>
-        <input type="range" id="fontSize" min="20" max="42" value="32">
+        <input type="range" id="fontSize" min="20" max="42" valvalue="32">
       </div>
 
       <div class="span-2">
         <label>Тестовый никнейм</label>
-        <input type="text" id="textInput" value="Alisa">
+        <input type="text" id="textInput" valvalue="Alisa">
       </div>
 
       <button id="downloadBtn" class="full">🟣 Скачать GIF-текстуру (256x256)</button>
@@ -297,13 +297,13 @@
 
     function setupColorSync(textEl, pickerEl) {
       textEl.addEventListener('input', () => {
-        const parsed = parseColorToHex(textEl.value);
+        const parsed = parseColorToHex(textEl.valvalue);
         if (parsed) {
-          pickerEl.value = parsed;
+          pickerEl.valvalue = parsed;
         }
       });
       pickerEl.addEventListener('input', () => {
-        textEl.value = pickerEl.value;
+        textEl.valvalue = pickerEl.valvalue;
       });
     }
 
@@ -326,13 +326,13 @@
 
     function getPixelColor(factor) {
       factor = Math.max(0, Math.min(1, factor));
-      const cBase = hexToRgb(baseColorInput.value);
-      const cShine = hexToRgb(shineColorInput.value);
+      const cBase = hexToRgb(baseColorInput.valvalue);
+      const cShine = hexToRgb(shineColorInput.valvalue);
 
       if (!useThirdColorInput.checked) {
         return lerpColor(cBase, cShine, factor);
       } else {
-        const cThird = hexToRgb(thirdColorInput.value);
+        const cThird = hexToRgb(thirdColorInput.valvalue);
         if (factor <= 0.5) {
           return lerpColor(cBase, cShine, factor * 2);
         } else {
@@ -343,15 +343,15 @@
 
     function renderTexture(progress) {
       const size = 256;
-      const pSize = parseInt(pixelSizeInput.value);
+      const pSize = parseInt(pixelSizeInput.valvalue);
       const cols = size / pSize;
       const rows = size / pSize;
 
-      const shineW = parseInt(shineWidthInput.value);
-      const pattern = patternTypeInput.value;
-      const smoothVal = parseInt(smoothnessInput.value);
+      const shineW = parseInt(shineWidthInput.valvalue);
+      const pattern = patternTypeInput.valvalue;
+      const smoothVal = parseInt(smoothnessInput.valvalue);
 
-      bufferCtx.fillStyle = baseColorInput.value;
+      bufferCtx.fillStyle = baseColorInput.valvalue;
       bufferCtx.fillRect(0, 0, size, size);
 
       for (let r = 0; r < rows; r++) {
@@ -410,11 +410,11 @@
       textCtx.clearRect(0, 0, textCanvas.width, textCanvas.height);
 
       textCtx.save();
-      textCtx.font = `900 ${fontSizeInput.value}px Impact, sans-serif`;
+      textCtx.font = `900 ${fontSizeInput.valvalue}px Impact, sans-serif`;
       textCtx.textAlign = 'center';
       textCtx.textBaseline = 'middle';
 
-      const nick = textInput.value || 'NICK';
+      const nick = textInput.valvalue || 'NICK';
       textCtx.fillStyle = '#ffffff';
       textCtx.fillText(nick, textCanvas.width / 2, textCanvas.height / 2);
 
@@ -431,23 +431,23 @@
     }
 
     function animate() {
-      const spd = parseInt(speedInput.value) * 0.005;
+      const spd = parseInt(speedInput.valvalue) * 0.005;
       animProgress = (animProgress + spd) % 1.0;
       renderTexture(animProgress);
-      requestAnimationFrame(animate);
+      reqvaluestAnimationFrame(animate);
     }
 
     animate();
 
     downloadBtn.addEventListener('click', () => {
     downloadBtn.innerText = '⌛ Рендеринг GIF...';
-    downloadBtn.disabled = true;
+    downloadBtn.disabled = trvalue;
 
     const frames = [];
     const totalFrames = 24;
     
     // Берем скорость из ползунка и рассчитываем задержку кадров (interval)
-    const speedVal = parseInt(speedInput.value);
+    const speedVal = parseInt(speedInput.valvalue);
     // Чем выше скорость, тем меньше задержка (минимально 0.02s для плавностей)
     const frameInterval = Math.max(0.02, Number((0.15 / speedVal).toFixed(3)));
 
